@@ -202,6 +202,16 @@ RCT_EXPORT_METHOD(login:(nonnull NSString *)id
     [Tune measureEventName:TUNE_EVENT_LOGIN];
 }
 
+RCT_EXPORT_METHOD(setUserId:(nonnull NSString *)id)
+{
+    [Tune setUserId:id];
+}
+
+RCT_EXPORT_METHOD(setUserName:(nonnull NSString *)name)
+{
+    [Tune setUserName:name];
+}
+
 RCT_EXPORT_METHOD(registration:(nonnull NSString *)id
                   userIdType:(nonnull NSString *)userIdType
                   email:(nonnull NSString *)email
@@ -419,6 +429,23 @@ RCT_EXPORT_METHOD(rated:(nonnull NSString *)id
     event.rating = rating.floatValue;
     event.contentId = contentId;
 
+    [Tune measureEvent:event];
+}
+
+RCT_EXPORT_METHOD(track:(nonnull NSString *)name
+                  properties:(nonnull NSDictionary *) properties)
+{
+    
+    TuneEvent *event = [TuneEvent eventWithName:name];
+    for (NSString *key in properties) {
+        id value = [properties objectForKey:key];
+        if ([value isKindOfClass:[NSString class]]) {
+            [event addTag:key withStringValue:value];
+        } else if ([value isKindOfClass:[NSNumber class]]) {
+            [event addTag:key withNumberValue:value];
+        }
+    }
+    
     [Tune measureEvent:event];
 }
 

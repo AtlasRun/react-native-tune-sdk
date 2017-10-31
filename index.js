@@ -397,6 +397,28 @@ class TuneSDK {
     TuneSDKBridge.setCustomProfileStringValue(name, value);
   }
 
+  static setUserId({ id = ''}) {
+    if (Platform.OS === 'ios') {
+      TuneSDKBridge.setUserId(id);
+    } else {
+    }
+  }
+
+  static setUserName({ name = ''}) {
+    if (Platform.OS === 'ios') {
+      TuneSDKBridge.setUserName(id);
+    } else {
+    }
+  }
+
+  static track({ name = '', properties = {}}) {
+    if (Platform.OS === 'ios') {
+      TuneSDKBridge.track(name, properties);
+    } else {
+    }
+  }
+
+
   /**
    * @param  {String} name of the custom geolocation for the profile
    * @param  {Object} value - a  date object
@@ -430,9 +452,7 @@ class TuneSDK {
    *    @param {String} description
    *    @param {Float} latitude
    *    @param {Float} longitude
-   */
-  static setCustomProfileGeolocation({ name = '', value = {}}) {
-    if (Platform.OS === 'ios') {
+   */ static setCustomProfileGeolocation({ name = '', value = {}}) { if (Platform.OS === 'ios') {
       TuneSDKBridge.setCustomProfileGeolocationValue(name, value);
     } else {
       TuneSDKBridge.setCustomProfileGeolocation(name, value);
